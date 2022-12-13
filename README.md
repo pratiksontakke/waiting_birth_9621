@@ -13,7 +13,7 @@ Payment is the exchange of money, goods, or services for goods and services in a
   <li><a href="https://github.com/Hartumpa">Harshit Awasthi</a></li>
   <li><a href="https://github.com/jkka777">Kishore J</a></li>
   <li><a href="https://github.com/rajashekharms369">Rajashekhar Sambalad</a></li>
-  <li><a href="https://github.com/">Sachin Parmar</a></li>
+  <li><a href="https://github.com/sachin9603">Sachin Parmar</a></li>
 </ul>
 
 
@@ -22,13 +22,10 @@ Payment is the exchange of money, goods, or services for goods and services in a
 On frontend terminal perform:
 
 ```bash
-  Open with Spring Tool Suite
+  Open pom.xml with Spring Tool Suite
 ```
 
-
-
 ## 🛠 Tech Stack
-
 
 - Java
 - Spring
@@ -43,15 +40,6 @@ On frontend terminal perform:
 ## Website flow for User
 
 - Home page 
-
-#### On address page use promo code - masai15
-
-- you will  get 15% discount
-
-
-#### Hard Coded Card details for payment section
-
-- COD
 
 #### Website Presentation :
 ![API](./images/readme/01.jpg)
