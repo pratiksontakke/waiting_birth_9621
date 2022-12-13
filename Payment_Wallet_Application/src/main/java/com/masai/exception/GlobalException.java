@@ -1,4 +1,4 @@
-package com.masai.exceptions;
+package com.masai.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
