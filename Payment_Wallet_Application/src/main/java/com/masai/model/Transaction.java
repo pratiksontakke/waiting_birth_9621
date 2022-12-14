@@ -18,4 +18,6 @@ public class Transaction {
     private double amount;
     private String description;
 
+    private Wallet wallet;
+
 }
