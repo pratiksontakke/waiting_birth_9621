@@ -74,6 +74,12 @@ public class GlobalException {
         return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(LoginException.class)
+    public ResponseEntity<MyErrorDetails> loginException(LoginException ce, WebRequest req) {
+        MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 
 
 
