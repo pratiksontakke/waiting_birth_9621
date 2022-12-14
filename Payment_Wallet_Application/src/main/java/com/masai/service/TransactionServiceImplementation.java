@@ -13,11 +13,13 @@ public class TransactionServiceImplementation implements TransactionService {
 
     @Override
     public Transaction addTransaction(Transaction transaction) {
-        return null;
+        Transaction t = transactionDAO.save(transaction);
+        return t;
     }
 
     @Override
     public List<Transaction> viewTransactionBetweenDates(LocalDate dateFrom, LocalDate dateTo) {
+        List<Transaction> list;
         return null;
     }
 
