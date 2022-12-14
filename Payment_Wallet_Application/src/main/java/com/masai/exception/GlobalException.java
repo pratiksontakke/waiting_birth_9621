@@ -37,13 +37,56 @@ public class GlobalException {
         return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
     }
 
-/*
+    // Our custom exceptions
+    @ExceptionHandler(BankAccountException.class)
+    public ResponseEntity<MyErrorDetails> bankAccountException(BankAccountException ce, WebRequest req) {
+        MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BeneficiaryDetailsException.class)
+    public ResponseEntity<MyErrorDetails> beneficiaryDetailsException(BeneficiaryDetailsException ce, WebRequest req) {
+        MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BillPaymentException.class)
+    public ResponseEntity<MyErrorDetails> billPaymentException(BillPaymentException ce, WebRequest req) {
+        MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(CustomerException.class)
     public ResponseEntity<MyErrorDetails> accountException(CustomerException ce, WebRequest req) {
         MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
         return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
     }
-*/
+
+    @ExceptionHandler(TransactionException.class)
+    public ResponseEntity<MyErrorDetails> transactionException(TransactionException ce, WebRequest req) {
+        MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(WalletException.class)
+    public ResponseEntity<MyErrorDetails> walletException(WalletException ce, WebRequest req) {
+        MyErrorDetails myErrorDetails = new MyErrorDetails(LocalDateTime.now(), ce.getMessage(), req.getDescription(false));
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
