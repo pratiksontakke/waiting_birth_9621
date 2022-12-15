@@ -33,6 +33,8 @@ public class BankAccount {
     private double balance;
 
 
+    @ManyToOne
+    @JoinColumn(name = "wallet_walled_id")
     private Wallet wallet;
 
 }

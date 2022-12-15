@@ -31,4 +31,8 @@ public class CurrentUserSession {
         this.uuid = uuid;
         this.localDateTime = localDateTime;
     }
+
+    public CurrentUserSession(String uuid) {
+        this.uuid = uuid;
+    }
 }
