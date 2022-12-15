@@ -17,10 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TransactionServiceImplementation implements TransactionService {
@@ -77,7 +74,7 @@ public class TransactionServiceImplementation implements TransactionService {
     }
 
     @Override
-    public Set<Transaction> viewAllTransactions(String key, Wallet wallet) throws WalletException, LoginException, TransactionException {
+    public Set<Transaction> viewAllTransactions(String key) throws WalletException, LoginException, TransactionException {
 //        to get all the transactions for a particular wallet
 
         CurrentUserSession aao = isLogin(key);
@@ -96,20 +93,66 @@ public class TransactionServiceImplementation implements TransactionService {
     }
 
     @Override
-    public Set<Transaction> viewTransactionBetweenDates(String key, LocalDate dateFrom, LocalDate dateTo) throws TransactionException {
-        List<Transaction> list = transactionDAO.findAll();
-        if (list.size() == 0) {
-            throw new TransactionException("No transaction found in between given dates");
+    public Set<Transaction> viewTransactionBetweenDates(String key, LocalDate dateFrom, LocalDate dateTo) throws TransactionException, LoginException {
+
+        CurrentUserSession aao = isLogin(key);
+
+        Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
+
+        if (aao != null) {
+
+            Wallet wallet = customer.getWallet();
+            Set<Transaction> transactionSet = transactionDAO.findByTransactionDateBetween(dateFrom, dateTo);
+            Set<Transaction> transactionSet2 = new HashSet<>();
+
+            for (Transaction t : transactionSet) {
+                if (t.getWallet().equals(wallet)) {
+                    transactionSet2.add(t);
+                } else {
+
+                }
+            }
+            if (transactionSet2.isEmpty()) {
+                throw new TransactionException("No transactions found!");
+            } else {
+                return transactionSet2;
+            }
+
+        } else {
+            throw new LoginException("You are not logged in!");
         }
-        return list;
     }
 
 
-    public Set<Transaction> viewAllTransactionByType(String key, String transactionType) throws TransactionException {
-        List<Transaction> list = transactionDAO.findAll();
-        if (list.size() == 0) {
-            throw new TransactionException("No transaction found in between given dates");
+    @Override
+    public Set<Transaction> viewAllTransactionByType(String key, String transactionType) throws TransactionException, LoginException {
+
+        CurrentUserSession aao = isLogin(key);
+
+        Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
+
+        if (aao != null) {
+
+            Wallet wallet = customer.getWallet();
+
+            Set<Transaction> transactionSet = transactionDAO.findByTransactionType(transactionType);
+            Set<Transaction> transactionSet2 = new HashSet<>();
+
+            for (Transaction t : transactionSet) {
+                if (t.getWallet().equals(wallet)) {
+                    transactionSet2.add(t);
+                } else {
+
+                }
+            }
+            if (transactionSet2.isEmpty()) {
+                throw new TransactionException("No transactions found!");
+            } else {
+                return transactionSet2;
+            }
+
+        } else {
+            throw new LoginException("You are not logged in!");
         }
-        return list;
     }
 }
