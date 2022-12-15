@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,9 +16,19 @@ import java.time.LocalDateTime;
 public class CurrentUserSession {
 
     @Id
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column(unique =  true)
     private Integer userId;
+
     private String uuid;
+
     private LocalDateTime localDateTime;
 
+    public CurrentUserSession(Integer userId, String uuid, LocalDateTime localDateTime) {
+        this.userId = userId;
+        this.uuid = uuid;
+        this.localDateTime = localDateTime;
+    }
 }
