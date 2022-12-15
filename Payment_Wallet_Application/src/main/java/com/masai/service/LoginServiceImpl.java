@@ -25,12 +25,12 @@ public class LoginServiceImpl implements LoginService{
 	
 	@Override
 	public String logIntoAccount(LoginDTO dto)throws LoginException {
-		Customer existingCustomer= cDao.findByMobileNo(dto.getMobileNumber());
+		Customer existingCustomer= cDao.findByMobileNumber(dto.getMobileNumber());
 		if(existingCustomer == null) {
 			throw new LoginException("Please Enter a valid mobile number");
 		}
 
-		CurrentUserSession currentUserSession = sDao.findByUserId(existingCustomer.getCustomerId());
+		CurrentUserSession currentUserSession = sDao.findByUserId(existingCustomer.getMobileNumber());
 
 		if(currentUserSession!=null) {
 			throw new LoginException("User already login with this userId");
@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService{
 
 		if(existingCustomer.getMobileNumber().equals(dto.getMobileNumber()) && existingCustomer.getPassword().equals(dto.getPassword())) {
 			String key= RandomString.make(6);
-			CurrentUserSession newCurrentUserSession = new CurrentUserSession(existingCustomer.getCustomerId(), key, LocalDateTime.now());
+			CurrentUserSession newCurrentUserSession = new CurrentUserSession(existingCustomer.getMobileNumber(), key, LocalDateTime.now());
 			sDao.save(newCurrentUserSession);
 			return  newCurrentUserSession.toString();
 		} else {
