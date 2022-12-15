@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SessionDAO extends JpaRepository<CurrentUserSession, Integer> {
     public CurrentUserSession findByUuid(String uuid);
-    public CurrentUserSession findByUserId(Integer userId);
+    public CurrentUserSession findByUserId(String userId);
     public CurrentUserSession findByMobileNo(String uuid);
 }

@@ -20,13 +20,13 @@ public class CurrentUserSession {
     private Integer id;
 
     @Column(unique =  true)
-    private Integer userId;
+    private String userId;
 
     private String uuid;
 
     private LocalDateTime localDateTime;
 
-    public CurrentUserSession(Integer userId, String uuid, LocalDateTime localDateTime) {
+    public CurrentUserSession(String userId, String uuid, LocalDateTime localDateTime) {
         this.userId = userId;
         this.uuid = uuid;
         this.localDateTime = localDateTime;

@@ -3,6 +3,7 @@ package com.masai.service;
 import com.masai.dao.CustomerDAO;
 import com.masai.dao.SessionDAO;
 import com.masai.dao.WalletDAO;
+import com.masai.exception.BankAccountException;
 import com.masai.exception.CustomerException;
 import com.masai.exception.LoginException;
 import com.masai.model.CurrentUserSession;
@@ -22,7 +23,8 @@ public class WalletServiceImpl implements WalletService {
     * Wallet Service
 1.	getCustomer -> wallet to isLogin to currentUserSession(mobile) to be matched with customer mobile
 2.	depositAmount -> currentUserSession(mobile) to be matched with customer mobile to add balance to wallet
-3.	fundTransfer -> params(toMobile,DestMobile,amount) check login, srcMob===currentSession(call getCustomer()) && check destMobile is exists if exists call depositAmount() else throw BankAccountNotFoundexception
+3.	fundTransfer -> params(toMobile,DestMobile,amount) check login, srcMob===currentSession(call getCustomer())
+*    && check destMobile is exists if exists call depositAmount() else throw BankAccountNotFoundexception
 4.	showBalance
 
     * */
@@ -43,7 +45,6 @@ public class WalletServiceImpl implements WalletService {
         else
             return null;
     }
-
     @Override
     public double showBalance(String mobileNumber, String key) throws CustomerException, LoginException {
 
@@ -61,17 +62,58 @@ public class WalletServiceImpl implements WalletService {
 
 
     }
-
     @Override
     public Customer getCustomers(String key) throws CustomerException, LoginException {
 
         CurrentUserSession aao = isLogin(key);
         if (aao != null) {
-            Optional<Wallet> customer = walletDAO.findById(aao.getUserId());
-
-            return customer.get().getCustomer();
+            return customerDAO.findByMobileNumber(aao.getUserId());
         } else {
             throw new LoginException("You are not logged in ...");
         }
     }
+    @Override
+    public String depositAmount(String key, Double amount) throws CustomerException, LoginException {
+
+        CurrentUserSession aao = isLogin(key);
+        if (aao != null) {
+            Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
+            customer.getWallet().setBalance(customer.getWallet().getBalance() + amount);
+            customerDAO.save(customer);
+            walletDAO.save(customer.getWallet());
+            return "Transaction successful..";
+        } else {
+            throw new LoginException("You are not logged in ...");
+        }
+    }
+
+    @Override
+    public Customer fundTransfer(String srcMob, String desMob, Double amount) throws CustomerException, LoginException, BankAccountException {
+        CurrentUserSession aao = isLogin(srcMob);
+        if (aao != null) {
+            Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
+            Double balance = customer.getWallet().getBalance();
+            if (balance >= amount) {
+                customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
+                customerDAO.save(customer);
+                walletDAO.save(customer.getWallet());
+                Customer desCustomer = customerDAO.findByMobileNumber(desMob);
+                if (desCustomer != null) {
+                    desCustomer.getWallet().setBalance(desCustomer.getWallet().getBalance() + amount);
+                    customerDAO.save(desCustomer);
+                    walletDAO.save(desCustomer.getWallet());
+
+                    return customer;
+                } else {
+                    throw new CustomerException("customer not found by userId..." + desMob);
+                }
+            } else {
+                throw new BankAccountException("Insufficient balance...");
+            }
+        } else {
+            throw new LoginException("You are not logged in ...");
+        }
+    }
+
+
 }
