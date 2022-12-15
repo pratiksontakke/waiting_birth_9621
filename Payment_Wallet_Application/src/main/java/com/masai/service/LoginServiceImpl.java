@@ -45,7 +45,8 @@ public class LoginServiceImpl implements LoginService{
 			throw new LoginException("Invalid mobile and Password");
 		}
 
-		/*Optional<CurrentUserSession> validCustomerSessionOpt =  sDao.findById(existingCustomer.getCustomerId());
+		/*
+		Optional<CurrentUserSession> validCustomerSessionOpt =  sDao.findById(existingCustomer.getCustomerId());
 		if(validCustomerSessionOpt.isPresent()) {
 			throw new LoginException("User already Logged In with this number");
 		}
