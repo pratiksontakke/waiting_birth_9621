@@ -18,7 +18,7 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer walledId;
-    private Integer bigDecimal;
+    private Double balance;
 
     @OneToMany(mappedBy = "wallet")
     @JsonIgnore
