@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -12,12 +12,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer transactionId;
     private String transactionType;
     private LocalDate transactionDate;
     private double amount;
     private String description;
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Wallet wallet;
 
 }
