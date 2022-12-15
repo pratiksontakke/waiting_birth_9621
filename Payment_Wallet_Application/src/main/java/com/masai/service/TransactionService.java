@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import com.masai.exception.LoginException;
 import com.masai.exception.TransactionException;
 import com.masai.exception.WalletException;
 import com.masai.model.Transaction;
@@ -7,13 +8,14 @@ import com.masai.model.Wallet;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public interface TransactionService {
-    public Transaction addTransaction(Transaction transaction);
+    public Transaction addTransaction(String key, Transaction transaction) throws LoginException;
 
-    public List<Transaction> viewAllTransactions(Wallet wallet) throws WalletException;
+    public Set<Transaction> viewAllTransactions(String key) throws WalletException, LoginException, TransactionException;
 
-    public List<Transaction> viewTransactionBetweenDates(LocalDate dateFrom, LocalDate dateTo) throws TransactionException;
+    public Set<Transaction> viewTransactionBetweenDates(String key, LocalDate dateFrom, LocalDate dateTo) throws TransactionException, LoginException;
 
-//    public List<Transaction> viewAllTransactionByType(String transactionType) throws TransactionException;
+    public Set<Transaction> viewAllTransactionByType(String key, String transactionType) throws TransactionException, LoginException;
 }
