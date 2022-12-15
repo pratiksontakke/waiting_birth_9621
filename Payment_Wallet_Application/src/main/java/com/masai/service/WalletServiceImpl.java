@@ -18,6 +18,15 @@ import java.util.Optional;
 @Service
 public class WalletServiceImpl implements WalletService {
 
+    /*
+    * Wallet Service
+1.	getCustomer -> wallet to isLogin to currentUserSession(mobile) to be matched with customer mobile
+2.	depositAmount -> currentUserSession(mobile) to be matched with customer mobile to add balance to wallet
+3.	fundTransfer -> params(toMobile,DestMobile,amount) check login, srcMob===currentSession(call getCustomer()) && check destMobile is exists if exists call depositAmount() else throw BankAccountNotFoundexception
+4.	showBalance
+
+    * */
+
     @Autowired
     private WalletDAO walletDAO;
 
@@ -32,13 +41,13 @@ public class WalletServiceImpl implements WalletService {
         if (currentUserSession != null)
             return currentUserSession;
         else
-            return  null;
+            return null;
     }
 
     @Override
     public double showBalance(String mobileNumber, String key) throws CustomerException, LoginException {
 
-        if (isLogin(key)!=null) {
+        if (isLogin(key) != null) {
             Customer customer = customerDAO.findByMobileNumber(mobileNumber);
 
 
@@ -57,10 +66,10 @@ public class WalletServiceImpl implements WalletService {
     public Customer getCustomers(String key) throws CustomerException, LoginException {
 
         CurrentUserSession aao = isLogin(key);
-        if (aao!=null) {
+        if (aao != null) {
             Optional<Wallet> customer = walletDAO.findById(aao.getUserId());
 
-            return  customer.get().getCustomer();
+            return customer.get().getCustomer();
         } else {
             throw new LoginException("You are not logged in ...");
         }
