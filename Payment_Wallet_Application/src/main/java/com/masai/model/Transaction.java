@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -12,21 +15,20 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
-<<<<<<< HEAD
 
-=======
->>>>>>> 8b1badcab112d2ca77296ee2b699cedb2ffe32bf
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer transactionId;
-    private String transactionType;
-    private LocalDate transactionDate;
-    private double amount;
-    private String description;
-<<<<<<< HEAD
 
-=======
->>>>>>> 8b1badcab112d2ca77296ee2b699cedb2ffe32bf
+    @NotNull
+    private TransactionTypeEnum transactionTypeEnum;
+    @NotNull
+    private LocalDate transactionDate;
+    @NotNull
+    private double amount;
+
+    private String description;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Wallet wallet;
 

@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer createCustomer(Customer customer)throws CustomerException {
 		
 		
-		Customer existingCustomer= cDao.findByMobileNo(customer.getNumberNumber());
+		Customer existingCustomer= cDao.findByMobileNo(customer.getMobileNumber());
 		
 		
 		
