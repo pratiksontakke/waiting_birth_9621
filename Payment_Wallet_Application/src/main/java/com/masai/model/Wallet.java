@@ -1,17 +1,15 @@
 package com.masai.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -22,7 +20,7 @@ public class Wallet {
     private Integer walledId;
     private Double balance;
 
-    @OneToMany(mappedBy = "wallet")
+    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Transaction> transactions = new HashSet<>();
 
@@ -32,16 +30,16 @@ public class Wallet {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "wallet")
+    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<BeneficiaryDetails> beneficiaryDetails = new HashSet<>();
 
 
     @JsonIgnore
-    @OneToMany( cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<BillPayment> billPayments = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "wallet")
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<BankAccount> bankAccounts = new HashSet<>();
 
 }

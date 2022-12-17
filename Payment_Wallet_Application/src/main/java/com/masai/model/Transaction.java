@@ -1,8 +1,6 @@
 package com.masai.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
@@ -20,11 +19,11 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer transactionId;
 
-    @NotNull
-    private TransactionTypeEnum transactionTypeEnum;
-    @NotNull
+//    @NotNull
+    private String transactionType;
+//    @NotNull
     private LocalDate transactionDate;
-    @NotNull
+//    @NotNull
     private double amount;
 
     private String description;

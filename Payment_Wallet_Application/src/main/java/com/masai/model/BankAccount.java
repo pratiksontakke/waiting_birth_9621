@@ -1,15 +1,14 @@
 package com.masai.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,17 +18,17 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer accountNo;
 
-    @NotNull
-    @NotEmpty
-    @NotBlank
+//    @NotNull
+//    @NotEmpty
+//    @NotBlank
     private String ifscCode;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
+//    @NotBlank
+//    @NotEmpty
+//    @NotNull
     private String bankName;
 
-    @NotNull
+//    @NotNull
     private double balance;
 
 

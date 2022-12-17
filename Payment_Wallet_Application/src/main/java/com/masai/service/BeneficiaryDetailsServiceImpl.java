@@ -12,12 +12,14 @@ import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
 import com.masai.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService {
 
     @Autowired
@@ -43,8 +45,9 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
     public BeneficiaryDetails addBeneficiaryDetails(String key, BeneficiaryDetails Bd) throws CustomerException, LoginException {
 
         CurrentUserSession aao = isLogin(key);
-
+        System.out.println("Bhagwan Hu Mai");
         if (aao != null) {
+            System.out.println("Bhagwan Hai Yaha");
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
 
             Wallet wallet = customer.getWallet();
@@ -53,7 +56,8 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
 
             Bd.setWallet(wallet);
             walletDAO.save(wallet);
-            BeneficiaryDao.save(Bd);
+//           BeneficiaryDao.save(Bd);
+            System.out.println("Bhagwan Hai Kaha re tu");
 
             return Bd;
         } else {
@@ -69,9 +73,11 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
         CurrentUserSession aao = isLogin(key);
 
         if (aao != null) {
-            Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
+            System.out.println("Hi baby");
 
             Optional<BeneficiaryDetails> beneficiaryDetails = BeneficiaryDao.findById(Bid);
+
+            System.out.println("Yea baby");
 
             if (beneficiaryDetails.isPresent()) {
 
