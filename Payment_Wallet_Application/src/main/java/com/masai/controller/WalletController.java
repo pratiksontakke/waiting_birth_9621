@@ -3,6 +3,7 @@ package com.masai.controller;
 import com.masai.exception.BankAccountException;
 import com.masai.exception.CustomerException;
 import com.masai.exception.LoginException;
+import com.masai.exception.TransactionException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
 import com.masai.service.WalletService;
@@ -37,7 +38,7 @@ public class WalletController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Customer> fundTransferHandler(@RequestParam("srcMob") String srcMob, @RequestParam("desMob") String desMob, @RequestParam("amount") Double amount, @RequestParam("key")String key) throws CustomerException, LoginException, BankAccountException {
+    public ResponseEntity<Customer> fundTransferHandler(@RequestParam("srcMob") String srcMob, @RequestParam("desMob") String desMob, @RequestParam("amount") Double amount, @RequestParam("key")String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
         Customer customer = walletService.fundTransfer(srcMob,desMob,amount,key);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }

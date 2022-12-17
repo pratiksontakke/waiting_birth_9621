@@ -2,16 +2,20 @@ package com.masai.service;
 
 import com.masai.dao.CustomerDAO;
 import com.masai.dao.SessionDAO;
+import com.masai.dao.TransactionDAO;
 import com.masai.dao.WalletDAO;
 import com.masai.exception.BankAccountException;
 import com.masai.exception.CustomerException;
 import com.masai.exception.LoginException;
+import com.masai.exception.TransactionException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Customer;
+import com.masai.model.Transaction;
 import com.masai.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +41,12 @@ public class WalletServiceImpl implements WalletService {
 
     @Autowired
     private SessionDAO sessionDAO;
+
+    @Autowired
+    private TransactionDAO transactionDAO;
+
+    @Autowired
+    private TransactionServiceImpl transactionService;
 
     public CurrentUserSession isLogin(String key) throws LoginException {
         CurrentUserSession currentUserSession = sessionDAO.findByUuid(key);
@@ -83,7 +93,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public Customer fundTransfer(String srcMob, String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException {
+    public Customer fundTransfer(String srcMob, String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
         CurrentUserSession aao = isLogin(key);
         System.out.println(aao.getUserId());
         if (aao != null) {
@@ -96,8 +106,18 @@ public class WalletServiceImpl implements WalletService {
                 Customer desCustomer = customerDAO.findByMobileNumber(desMob);
                 if (desCustomer != null) {
                     desCustomer.getWallet().setBalance(desCustomer.getWallet().getBalance() + amount);
+                    Transaction transaction = new Transaction();
+                    transaction.setWallet(customer.getWallet());
+                    transaction.setAmount(amount);
+                    transaction.setTransactionDate(LocalDate.now());
+                    transaction.setTransactionType("Debited");
+                    transactionService.addTransaction(key, transaction);
+//                    customer.getWallet().getTransactions().add()
+
                     customerDAO.save(desCustomer);
                     walletDAO.save(desCustomer.getWallet());
+
+
 
                     return customer;
                 } else {
