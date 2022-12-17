@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -27,6 +28,7 @@ public class BeneficiaryDetails {
     @NotBlank
     @NotEmpty
     @Pattern(regexp = "^([+]\\d{2}[ ])?\\d{10}$\n")
+
     private String mobileNumber;
 
 //    ^([+]\d{2}[ ])?\d{10}$ == +91 9876543210 this is the pattern
