@@ -4,7 +4,6 @@ import com.masai.dao.CustomerDAO;
 import com.masai.dao.SessionDAO;
 import com.masai.dao.TransactionDAO;
 import com.masai.dao.WalletDAO;
-import com.masai.exception.CustomerException;
 import com.masai.exception.LoginException;
 import com.masai.exception.TransactionException;
 import com.masai.exception.WalletException;
@@ -15,12 +14,11 @@ import com.masai.model.Wallet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
 import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class TransactionServiceImplementation implements TransactionService {
+public class TransactionServiceImpl implements TransactionService {
 
     /*
     *
@@ -141,8 +139,6 @@ public class TransactionServiceImplementation implements TransactionService {
             for (Transaction t : transactionSet) {
                 if (t.getWallet().equals(wallet)) {
                     transactionSet2.add(t);
-                } else {
-
                 }
             }
             if (transactionSet2.isEmpty()) {

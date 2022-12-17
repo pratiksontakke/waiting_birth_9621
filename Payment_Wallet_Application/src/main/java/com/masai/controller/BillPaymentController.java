@@ -22,9 +22,8 @@ public class BillPaymentController {
     private BillPaymentService billPaymentService;
 
 
-    @PostMapping("/add/{key}")
+    @PostMapping("/{key}")
     public ResponseEntity<BillPayment> addBillPayment(@PathVariable("key") String key, @RequestBody BillPayment billPayment) throws LoginException, BillPaymentException {
-
 
         BillPayment billPayment1 = billPaymentService.addBillPayment(key, billPayment);
 

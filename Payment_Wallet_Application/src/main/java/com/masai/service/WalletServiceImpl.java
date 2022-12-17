@@ -46,12 +46,9 @@ public class WalletServiceImpl implements WalletService {
             return null;
     }
     @Override
-    public double showBalance(String mobileNumber, String key) throws CustomerException, LoginException {
-
+    public double showBalance(String key, String mobileNumber) throws CustomerException, LoginException {
         if (isLogin(key) != null) {
             Customer customer = customerDAO.findByMobileNumber(mobileNumber);
-
-
             if (customer != null)
                 return customer.getWallet().getBalance();
             else
@@ -59,12 +56,10 @@ public class WalletServiceImpl implements WalletService {
         } else {
             throw new LoginException("You are not logged in ...");
         }
-
-
     }
+
     @Override
     public Customer getCustomers(String key) throws CustomerException, LoginException {
-
         CurrentUserSession aao = isLogin(key);
         if (aao != null) {
             return customerDAO.findByMobileNumber(aao.getUserId());
