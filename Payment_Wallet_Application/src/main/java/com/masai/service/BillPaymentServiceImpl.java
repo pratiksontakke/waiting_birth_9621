@@ -11,6 +11,7 @@ import com.masai.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Service
@@ -42,14 +43,26 @@ public class BillPaymentServiceImpl implements BillPaymentService {
 
         if (aao != null) {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
-
             Wallet wallet = customer.getWallet();
+            if(wallet.getBalance() >= billPayment.getAmount()) {
 
-            wallet.getBillPayments().add(billPayment);
+                wallet.getBillPayments().add(billPayment);
 
-            walletDAO.save(wallet);
+                Transaction transaction = new Transaction();
+                transaction.setWallet(customer.getWallet());
+                transaction.setAmount(billPayment.getAmount());
+                transaction.setTransactionDate(LocalDate.now());
+                transaction.setTransactionType("Debited");
+                transaction.setDescription(billPayment.getBillType().toString());
+                customer.getWallet().getTransactions().add(transaction);
 
-            return billPayment;
+                wallet.setBalance(wallet.getBalance() - billPayment.getAmount());
+                walletDAO.save(wallet);
+
+                return billPayment;
+            } else {
+                throw new BillPaymentException("Insufficient Balance");
+            }
 
         } else {
             throw new LoginException("You are not logged in ...");

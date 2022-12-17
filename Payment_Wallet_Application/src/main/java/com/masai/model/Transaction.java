@@ -22,6 +22,7 @@ public class Transaction {
 
 //    @NotNull
     private String transactionType;
+
 //    @NotNull
     private LocalDate transactionDate;
 //    @NotNull

@@ -1,8 +1,6 @@
 package com.masai.service;
 
-import com.masai.exception.LoginException;
-import com.masai.exception.TransactionException;
-import com.masai.exception.WalletException;
+import com.masai.exception.*;
 import com.masai.model.Transaction;
 import com.masai.model.Wallet;
 
@@ -11,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface TransactionService {
-    public Transaction addTransaction(String key, Transaction transaction) throws LoginException, TransactionException;
+    public Transaction addTransaction(String key, Transaction transaction) throws LoginException, TransactionException, BankAccountException, CustomerException;
 
     public Set<Transaction> viewAllTransactions(String key) throws WalletException, LoginException, TransactionException;
 

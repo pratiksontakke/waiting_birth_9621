@@ -62,7 +62,6 @@ public class TransactionServiceImpl implements TransactionService {
 
             wallet.getTransactions().add(transaction);
             if(wallet.getBalance()>=transaction.getAmount()){
-//                transaction.setTransactionId(transaction.getTransactionId());
                 wallet.setBalance(wallet.getBalance()-transaction.getAmount());
             }
             else{

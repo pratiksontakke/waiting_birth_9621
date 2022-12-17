@@ -19,9 +19,9 @@ public class WalletController {
 
     @Autowired
     private WalletService walletService;
-    @GetMapping("/{key}/{mob}")
-    public ResponseEntity<Double> showBalanceHandler(@PathVariable("key") String key, @PathVariable("mob") String mob) throws CustomerException, LoginException {
-        Double balance= walletService.showBalance(key,mob);
+    @GetMapping("/showBalance/{key}")
+    public ResponseEntity<Double> showBalanceHandler(@PathVariable("key") String key) throws CustomerException, LoginException {
+        Double balance= walletService.showBalance(key);
         return new ResponseEntity<>(balance, HttpStatus.OK);
     }
 

@@ -1,8 +1,6 @@
 package com.masai.controller;
 
-import com.masai.exception.LoginException;
-import com.masai.exception.TransactionException;
-import com.masai.exception.WalletException;
+import com.masai.exception.*;
 import com.masai.model.Transaction;
 import com.masai.model.Wallet;
 import com.masai.service.TransactionService;
@@ -22,7 +20,7 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping("/{key}")
-    public ResponseEntity<Transaction> addTransaction(@PathVariable("key") String key, @RequestBody Transaction transaction) throws LoginException, TransactionException {
+    public ResponseEntity<Transaction> addTransaction(@PathVariable("key") String key, @RequestBody Transaction transaction) throws LoginException, TransactionException, BankAccountException, CustomerException {
         Transaction transaction1 = transactionService.addTransaction(key, transaction);
         return new ResponseEntity<Transaction>(transaction1, HttpStatus.CREATED);
     }
