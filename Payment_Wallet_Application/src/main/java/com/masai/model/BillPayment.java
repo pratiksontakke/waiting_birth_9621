@@ -28,5 +28,4 @@ public class BillPayment {
     @NotNull
     private LocalDate paymentDate;
 
-    private Wallet wallet;
 }
