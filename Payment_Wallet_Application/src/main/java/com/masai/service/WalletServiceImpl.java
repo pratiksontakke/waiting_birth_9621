@@ -83,8 +83,9 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public Customer fundTransfer(String srcMob, String desMob, Double amount) throws CustomerException, LoginException, BankAccountException {
-        CurrentUserSession aao = isLogin(srcMob);
+    public Customer fundTransfer(String srcMob, String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException {
+        CurrentUserSession aao = isLogin(key);
+        System.out.println(aao.getUserId());
         if (aao != null) {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
             Double balance = customer.getWallet().getBalance();

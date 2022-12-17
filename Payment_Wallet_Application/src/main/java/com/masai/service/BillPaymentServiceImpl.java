@@ -9,9 +9,11 @@ import com.masai.exception.LoginException;
 import com.masai.exception.TransactionException;
 import com.masai.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class BillPaymentServiceImpl implements BillPaymentService {
 
     @Autowired

@@ -1,16 +1,15 @@
 package com.masai.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BeneficiaryDetails {
@@ -18,23 +17,23 @@ public class BeneficiaryDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bId;
-
-    @NotNull
-    @NotBlank
-    @NotEmpty
+    //
+//    @NotNull
+//    @NotBlank
+//    @NotEmpty
     private String name;
 
-    @NotNull
-    @NotBlank
-    @NotEmpty
-    @Pattern(regexp = "^([+]\\d{2}[ ])?\\d{10}$\n")
+//    @NotNull
+//    @NotBlank
+//    @NotEmpty
+//    @Pattern(regexp = "^([+]\\d{2}[ ])?\\d{10}$\n")
 
     private String mobileNumber;
 
 //    ^([+]\d{2}[ ])?\d{10}$ == +91 9876543210 this is the pattern
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Wallet wallet;
 
 }

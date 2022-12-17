@@ -15,7 +15,7 @@ public interface TransactionService {
 
     public Set<Transaction> viewAllTransactions(String key) throws WalletException, LoginException, TransactionException;
 
-    public Set<Transaction> viewTransactionBetweenDates(String key, LocalDate dateFrom, LocalDate dateTo) throws TransactionException, LoginException;
+   public Set<Transaction> viewTransactionBetweenDates(String key, LocalDate dateFrom, LocalDate dateTo) throws TransactionException, LoginException;
 
     public Set<Transaction> viewAllTransactionByType(String key, String transactionType) throws TransactionException, LoginException;
 }

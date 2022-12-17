@@ -1,8 +1,6 @@
 package com.masai.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class BillPayment {
@@ -22,10 +21,10 @@ public class BillPayment {
 
     private BillPaymentEnum billType;
 
-    @NotNull
+//    @NotNull
     private double amount;
 
-    @NotNull
+//    @NotNull
     private LocalDate paymentDate;
 
 }

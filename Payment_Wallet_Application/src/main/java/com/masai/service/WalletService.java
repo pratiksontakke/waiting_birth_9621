@@ -22,5 +22,5 @@ public interface WalletService {
     public String depositAmount(String key, Double amount ) throws CustomerException, LoginException;
 
 
-    public Customer fundTransfer( String srcMob,String desMob ,Double amount) throws CustomerException ,LoginException, BankAccountException;
+    public Customer fundTransfer( String srcMob,String desMob ,Double amount,String key) throws CustomerException ,LoginException, BankAccountException;
 }
