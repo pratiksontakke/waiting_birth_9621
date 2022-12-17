@@ -56,13 +56,14 @@ public class WalletServiceImpl implements WalletService {
             return null;
     }
     @Override
-    public double showBalance(String key, String mobileNumber) throws CustomerException, LoginException {
+    public double showBalance(String key) throws CustomerException, LoginException {
         if (isLogin(key) != null) {
-            Customer customer = customerDAO.findByMobileNumber(mobileNumber);
+            CurrentUserSession currentUserSession = sessionDAO.findByUuid(key);
+            Customer customer = customerDAO.findByMobileNumber(currentUserSession.getUserId());
             if (customer != null)
                 return customer.getWallet().getBalance();
             else
-                throw new CustomerException("No Account found with id :" + mobileNumber);
+                throw new CustomerException("No Account found ... ");
         } else {
             throw new LoginException("You are not logged in ...");
         }
@@ -95,12 +96,11 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Customer fundTransfer(String srcMob, String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
         CurrentUserSession aao = isLogin(key);
-        System.out.println(aao.getUserId());
         if (aao != null) {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
             Double balance = customer.getWallet().getBalance();
             if (balance >= amount) {
-//                customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
+                customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
                 customerDAO.save(customer);
                 walletDAO.save(customer.getWallet());
                 Customer desCustomer = customerDAO.findByMobileNumber(desMob);
@@ -112,9 +112,9 @@ public class WalletServiceImpl implements WalletService {
                     transaction.setTransactionDate(LocalDate.now());
                     transaction.setTransactionType("Debited");
                     customer.getWallet().getTransactions().add(transaction);
-//                    customer.getWallet().getTransactions().add()
                     customerDAO.save(desCustomer);
                     walletDAO.save(desCustomer.getWallet());
+//                    creditedFund(desMob, amount);
                     return customer;
                 } else {
                     throw new CustomerException("customer not found by userId..." + desMob);
@@ -127,5 +127,22 @@ public class WalletServiceImpl implements WalletService {
         }
     }
 
+    @Override
+    public Customer creditedFund(String desMob, Double amount) throws CustomerException, LoginException, BankAccountException, TransactionException {
+        Customer customer = customerDAO.findByMobileNumber(desMob);
+        if(customer!=null) {
+            customer.getWallet().setBalance(customer.getWallet().getBalance()+amount);
+            Transaction transaction = new Transaction();
+            transaction.setWallet(customer.getWallet());
+            transaction.setAmount(amount);
+            transaction.setTransactionDate(LocalDate.now());
+            transaction.setTransactionType("Credited");
+            customer.getWallet().getTransactions().add(transaction);
+            customerDAO.save(customer);
+            return customer;
+        } else {
+            throw new CustomerException("Customer not exits with mobile number : " + desMob);
+        }
+    }
 
 }

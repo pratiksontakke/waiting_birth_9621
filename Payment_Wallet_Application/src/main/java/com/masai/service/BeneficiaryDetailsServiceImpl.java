@@ -45,20 +45,13 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
     public BeneficiaryDetails addBeneficiaryDetails(String key, BeneficiaryDetails Bd) throws CustomerException, LoginException {
 
         CurrentUserSession aao = isLogin(key);
-        System.out.println("Bhagwan Hu Mai");
         if (aao != null) {
-            System.out.println("Bhagwan Hai Yaha");
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
-
             Wallet wallet = customer.getWallet();
-
             wallet.getBeneficiaryDetails().add(Bd);
-
             Bd.setWallet(wallet);
             walletDAO.save(wallet);
-//           BeneficiaryDao.save(Bd);
             System.out.println("Bhagwan Hai Kaha re tu");
-
             return Bd;
         } else {
             throw new LoginException("You are not login");
@@ -80,9 +73,9 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
             System.out.println("Yea baby");
 
             if (beneficiaryDetails.isPresent()) {
-
+                System.out.println(beneficiaryDetails.get() + " ----------------------------");
                 BeneficiaryDao.delete(beneficiaryDetails.get());
-
+                System.out.println(beneficiaryDetails.get() + " ----------------------------");
                 return beneficiaryDetails.get();
 
             } else {
@@ -105,10 +98,10 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
 
             Optional<BeneficiaryDetails> beneficiaryDetails = BeneficiaryDao.findById(Bid);
-
+            System.out.println(" before present  ----------------------------");
             if (beneficiaryDetails.isPresent()) {
 
-
+                System.out.println(beneficiaryDetails.get() + " ----------------------------");
                 return beneficiaryDetails.get();
 
             } else {
@@ -130,9 +123,8 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
 
             Set<BeneficiaryDetails> beneficiaryDetails = customer.getWallet().getBeneficiaryDetails();
-            if (beneficiaryDetails != null) {
+            if (beneficiaryDetails.size()>0) {
                 return beneficiaryDetails;
-
             } else {
                 throw new BeneficiaryDetailsException("no Beneficiary found  with this Id ! ");
             }
