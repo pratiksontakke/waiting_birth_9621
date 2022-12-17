@@ -20,36 +20,27 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-
-    @PostMapping("/add/{key}")
+    @PostMapping("/{key}")
     public ResponseEntity<Transaction> addTransaction(@PathVariable("key") String key, @RequestBody Transaction transaction) throws LoginException {
-
         Transaction transaction1 = transactionService.addTransaction(key, transaction);
-
-        return new ResponseEntity<Transaction>(transaction1, HttpStatus.ACCEPTED);
+        return new ResponseEntity<Transaction>(transaction1, HttpStatus.CREATED);
     }
 
     @GetMapping("/{key}")
     public ResponseEntity<Set<Transaction>> viewAllTransactions(@PathVariable("key") String key) throws WalletException, LoginException, TransactionException {
-
         Set<Transaction> transactionSet = transactionService.viewAllTransactions(key);
-
         return new ResponseEntity<Set<Transaction>>(transactionSet, HttpStatus.OK);
     }
 
-    @PostMapping("/add/{key}/{fromDate}/{toDate}")
+    @GetMapping("/{key}/{fromDate}/{toDate}")
     public ResponseEntity<Set<Transaction>> viewTransactionBetweenDates(@PathVariable("key") String key, @PathVariable("fromDate") LocalDate dateFrom, @PathVariable("toDate") LocalDate dateTo) throws TransactionException, LoginException {
-
         Set<Transaction> transactionSet = transactionService.viewTransactionBetweenDates(key, dateFrom, dateTo);
-
         return new ResponseEntity<Set<Transaction>>(transactionSet, HttpStatus.OK);
     }
 
     @GetMapping("/{key}/{type}")
     public ResponseEntity<Set<Transaction>> viewAllTransactionByType(@PathVariable("key") String key, @PathVariable("type") String transactionType) throws TransactionException, LoginException {
-
         Set<Transaction> transactionSet = transactionService.viewAllTransactionByType(key, transactionType);
-
         return new ResponseEntity<Set<Transaction>>(transactionSet, HttpStatus.OK);
     }
 

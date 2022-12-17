@@ -21,7 +21,7 @@ public class BeneficiaryDetailsController {
     @Autowired
     private BeneficiaryDetailsService beneficiaryDetailsService;
 
-    @PostMapping("/add/{key}")
+    @PostMapping("/{key}")
     public ResponseEntity<BeneficiaryDetails> addBeneficiaryDetail(@PathVariable("key") String key, @RequestBody BeneficiaryDetails beneficiaryDetails) throws LoginException, CustomerException {
 
         BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.addBeneficiaryDetails(key , beneficiaryDetails);
@@ -31,7 +31,7 @@ public class BeneficiaryDetailsController {
 
 
 
-    @DeleteMapping("/add/{key}/{Bid}")
+    @DeleteMapping("/{key}/{Bid}")
     public ResponseEntity<BeneficiaryDetails> deleteBeneficiaryDetail(@PathVariable("key") String key , @PathVariable("Bid") Integer Bid ) throws LoginException, CustomerException, BeneficiaryDetailsException {
 
         BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.deleteBeneficiaryDetails(  key , Bid);
@@ -40,7 +40,7 @@ public class BeneficiaryDetailsController {
     }
 
 
-    @GetMapping ("/add/{key}/{Bid}")
+    @GetMapping ("/{key}/{Bid}")
     public ResponseEntity<BeneficiaryDetails> getBeneficiaryDetail(@PathVariable("key") String key , @PathVariable("Bid") Integer Bid ) throws LoginException, CustomerException, BeneficiaryDetailsException {
 
         BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.getBeneficiaryDetailsById(key,Bid);
@@ -49,14 +49,12 @@ public class BeneficiaryDetailsController {
     }
 
 
-    @GetMapping ("/add/{key}")
+    @GetMapping ("/{key}")
     public ResponseEntity<Set<BeneficiaryDetails>> getAllBeneficiary(@PathVariable("key") String key ) throws LoginException, CustomerException, BeneficiaryDetailsException {
 
         Set<BeneficiaryDetails> allbeneficiaryDetails = beneficiaryDetailsService.getAllBeneficiaryDetails(key);
 
         return new ResponseEntity<Set<BeneficiaryDetails>>(allbeneficiaryDetails, HttpStatus.OK);
     }
-
-
 
 }

@@ -20,22 +20,13 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> logInCustomer(@RequestBody LoginDTO dto) throws LoginException {
-		
 		String result = customerLogin.logIntoAccount(dto);
-		
-
-		
-		return new ResponseEntity<String>(result,HttpStatus.OK );
-		
-		
+		return new ResponseEntity<String>(result, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/logout")
-	public String logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
-		return customerLogin.logOutFromAccount(key);
-		
+	public ResponseEntity<String> logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
+		String result = customerLogin.logOutFromAccount(key);
+		return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
 	}
-	
-	
-	
 }

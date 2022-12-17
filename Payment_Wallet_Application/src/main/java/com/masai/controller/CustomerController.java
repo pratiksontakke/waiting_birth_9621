@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
@@ -20,9 +21,9 @@ public class CustomerController {
     }
 
     @PutMapping("/customers")
-    public  ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer,@RequestParam(required = false) String key ) throws CustomerException {
+    public  ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @RequestParam(required = false) String key ) throws CustomerException {
         Customer updatedCustomer= cService.updateCustomer(customer, key);
-        return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.OK);
+        return new ResponseEntity<Customer>(updatedCustomer,HttpStatus.ACCEPTED);
     }
 
 }
