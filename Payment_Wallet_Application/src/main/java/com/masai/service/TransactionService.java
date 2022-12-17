@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface TransactionService {
-    public Transaction addTransaction(String key, Transaction transaction) throws LoginException;
+    public Transaction addTransaction(String key, Transaction transaction) throws LoginException, TransactionException;
 
     public Set<Transaction> viewAllTransactions(String key) throws WalletException, LoginException, TransactionException;
 

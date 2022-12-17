@@ -1,5 +1,6 @@
 package com.masai.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Transaction {
 
     private String description;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private Wallet wallet;
 

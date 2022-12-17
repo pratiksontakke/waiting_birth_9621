@@ -50,7 +50,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Transaction addTransaction(String key, Transaction transaction) throws LoginException {
+    public Transaction addTransaction(String key, Transaction transaction) throws LoginException, TransactionException {
 //        getting the wallet and adding the transactions
 
         CurrentUserSession aao = isLogin(key);
@@ -61,6 +61,13 @@ public class TransactionServiceImpl implements TransactionService {
             Wallet wallet = customer.getWallet();
 
             wallet.getTransactions().add(transaction);
+            if(wallet.getBalance()>=transaction.getAmount()){
+//                transaction.setTransactionId(transaction.getTransactionId());
+                wallet.setBalance(wallet.getBalance()-transaction.getAmount());
+            }
+            else{
+                throw  new TransactionException("Insufficient Balance !!!");
+            }
             walletDAO.save(wallet);
             transaction.setWallet(wallet);
             transactionDAO.save(transaction);
@@ -91,6 +98,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+
     public Set<Transaction> viewTransactionBetweenDates(String key, LocalDate dateFrom, LocalDate dateTo) throws TransactionException, LoginException {
 
         CurrentUserSession aao = isLogin(key);
@@ -101,13 +109,15 @@ public class TransactionServiceImpl implements TransactionService {
 
             Wallet wallet = customer.getWallet();
             Set<Transaction> transactionSet = transactionDAO.findByTransactionDateBetween(dateFrom, dateTo);
+            System.out.println(transactionSet);
             Set<Transaction> transactionSet2 = new HashSet<>();
 
             for (Transaction t : transactionSet) {
-                if (t.getWallet().equals(wallet)) {
-                    transactionSet2.add(t);
-                } else {
+                System.out.println("boom boom");
+                if (t.getWallet()!=null && t.getWallet().getWalledId() == wallet.getWalledId()) {
 
+                    System.out.println(t.getWallet().getWalledId()  + " " +wallet.getWalledId());
+                    transactionSet2.add(t);
                 }
             }
             if (transactionSet2.isEmpty()) {
