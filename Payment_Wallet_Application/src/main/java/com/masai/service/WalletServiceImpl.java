@@ -100,7 +100,7 @@ public class WalletServiceImpl implements WalletService {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
             Double balance = customer.getWallet().getBalance();
             if (balance >= amount) {
-                customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
+//                customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
                 customerDAO.save(customer);
                 walletDAO.save(customer.getWallet());
                 Customer desCustomer = customerDAO.findByMobileNumber(desMob);
@@ -111,14 +111,10 @@ public class WalletServiceImpl implements WalletService {
                     transaction.setAmount(amount);
                     transaction.setTransactionDate(LocalDate.now());
                     transaction.setTransactionType("Debited");
-                    transactionService.addTransaction(key, transaction);
+                    customer.getWallet().getTransactions().add(transaction);
 //                    customer.getWallet().getTransactions().add()
-
                     customerDAO.save(desCustomer);
                     walletDAO.save(desCustomer.getWallet());
-
-
-
                     return customer;
                 } else {
                     throw new CustomerException("customer not found by userId..." + desMob);
