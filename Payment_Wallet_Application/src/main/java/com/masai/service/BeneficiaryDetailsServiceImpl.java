@@ -74,8 +74,12 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
 
             if (beneficiaryDetails.isPresent()) {
                 System.out.println(beneficiaryDetails.get() + " ----------------------------");
+//                BeneficiaryDao.(beneficiaryDetails.get());
+
                 BeneficiaryDao.delete(beneficiaryDetails.get());
+
                 System.out.println(beneficiaryDetails.get() + " ----------------------------");
+
                 return beneficiaryDetails.get();
 
             } else {
@@ -123,7 +127,7 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
 
             Set<BeneficiaryDetails> beneficiaryDetails = customer.getWallet().getBeneficiaryDetails();
-            if (beneficiaryDetails.size()>0) {
+            if (beneficiaryDetails.size() > 0) {
                 return beneficiaryDetails;
             } else {
                 throw new BeneficiaryDetailsException("no Beneficiary found  with this Id ! ");
