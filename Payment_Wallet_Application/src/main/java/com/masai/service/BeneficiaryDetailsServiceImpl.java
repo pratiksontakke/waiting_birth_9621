@@ -60,6 +60,7 @@ public class BeneficiaryDetailsServiceImpl implements BeneficiaryDetailsService 
 
     }
 
+
     @Override
     public BeneficiaryDetails deleteBeneficiaryDetails(String key, Integer Bid) throws CustomerException, LoginException, BeneficiaryDetailsException {
 

@@ -24,33 +24,32 @@ public class BeneficiaryDetailsController {
     @PostMapping("/{key}")
     public ResponseEntity<BeneficiaryDetails> addBeneficiaryDetail(@PathVariable("key") String key, @RequestBody BeneficiaryDetails beneficiaryDetails) throws LoginException, CustomerException {
 
-        BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.addBeneficiaryDetails(key , beneficiaryDetails);
+        BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.addBeneficiaryDetails(key, beneficiaryDetails);
 
         return new ResponseEntity<BeneficiaryDetails>(beneficiaryDetails1, HttpStatus.CREATED);
     }
 
 
-
     @DeleteMapping("/{key}/{Bid}")
-    public ResponseEntity<BeneficiaryDetails> deleteBeneficiaryDetail(@PathVariable("key") String key , @PathVariable("Bid") Integer Bid ) throws LoginException, CustomerException, BeneficiaryDetailsException {
+    public ResponseEntity<BeneficiaryDetails> deleteBeneficiaryDetail(@PathVariable("key") String key, @PathVariable("Bid") Integer Bid) throws LoginException, CustomerException, BeneficiaryDetailsException {
 
-        BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.deleteBeneficiaryDetails(  key , Bid);
-
-        return new ResponseEntity<BeneficiaryDetails>(beneficiaryDetails1, HttpStatus.OK);
-    }
-
-
-    @GetMapping ("/{key}/{Bid}")
-    public ResponseEntity<BeneficiaryDetails> getBeneficiaryDetail(@PathVariable("key") String key , @PathVariable("Bid") Integer Bid ) throws LoginException, CustomerException, BeneficiaryDetailsException {
-
-        BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.getBeneficiaryDetailsById(key,Bid);
+        BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.deleteBeneficiaryDetails(key, Bid);
 
         return new ResponseEntity<BeneficiaryDetails>(beneficiaryDetails1, HttpStatus.OK);
     }
 
 
-    @GetMapping ("/{key}")
-    public ResponseEntity<Set<BeneficiaryDetails>> getAllBeneficiary(@PathVariable("key") String key ) throws LoginException, CustomerException, BeneficiaryDetailsException {
+    @GetMapping("/{key}/{Bid}")
+    public ResponseEntity<BeneficiaryDetails> getBeneficiaryDetail(@PathVariable("key") String key, @PathVariable("Bid") Integer Bid) throws LoginException, CustomerException, BeneficiaryDetailsException {
+
+        BeneficiaryDetails beneficiaryDetails1 = beneficiaryDetailsService.getBeneficiaryDetailsById(key, Bid);
+
+        return new ResponseEntity<BeneficiaryDetails>(beneficiaryDetails1, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{key}")
+    public ResponseEntity<Set<BeneficiaryDetails>> getAllBeneficiary(@PathVariable("key") String key) throws LoginException, CustomerException, BeneficiaryDetailsException {
 
         Set<BeneficiaryDetails> allbeneficiaryDetails = beneficiaryDetailsService.getAllBeneficiaryDetails(key);
 
