@@ -33,7 +33,7 @@ public class BeneficiaryDetails {
 //    ^([+]\d{2}[ ])?\d{10}$ == +91 9876543210 this is the pattern
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     private Wallet wallet;
 
 }

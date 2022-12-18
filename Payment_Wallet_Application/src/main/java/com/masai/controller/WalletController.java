@@ -38,8 +38,8 @@ public class WalletController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Customer> fundTransferHandler(@RequestParam("srcMob") String srcMob, @RequestParam("desMob") String desMob, @RequestParam("amount") Double amount, @RequestParam("key")String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
-        Customer customer = walletService.fundTransfer(srcMob,desMob,amount,key);
+    public ResponseEntity<Customer> fundTransferHandler(@RequestParam("desMob") String desMob, @RequestParam("amount") Double amount, @RequestParam("key")String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
+        Customer customer = walletService.fundTransfer(desMob,amount,key);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
 

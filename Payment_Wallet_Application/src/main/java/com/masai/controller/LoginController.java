@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class LoginController {
 
@@ -19,13 +21,13 @@ public class LoginController {
 	private LoginService customerLogin;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> logInCustomer(@RequestBody LoginDTO dto) throws LoginException {
+	public ResponseEntity<String> logInCustomer(@Valid @RequestBody LoginDTO dto) throws LoginException {
 		String result = customerLogin.logIntoAccount(dto);
 		return new ResponseEntity<String>(result, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/logout")
-	public ResponseEntity<String> logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
+	public ResponseEntity<String> logoutCustomer(@Valid @RequestParam String key) throws LoginException {
 		String result = customerLogin.logOutFromAccount(key);
 		return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
 	}

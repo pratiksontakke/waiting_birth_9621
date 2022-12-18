@@ -94,26 +94,40 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public Customer fundTransfer(String srcMob, String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
+    public Customer fundTransfer(String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException {
         CurrentUserSession aao = isLogin(key);
         if (aao != null) {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
             Double balance = customer.getWallet().getBalance();
             if (balance >= amount) {
-                customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
+
                 customerDAO.save(customer);
                 walletDAO.save(customer.getWallet());
                 Customer desCustomer = customerDAO.findByMobileNumber(desMob);
                 if (desCustomer != null) {
-                    desCustomer.getWallet().setBalance(desCustomer.getWallet().getBalance() + amount);
+                    customer.getWallet().setBalance(customer.getWallet().getBalance() - amount);
                     Transaction transaction = new Transaction();
                     transaction.setWallet(customer.getWallet());
                     transaction.setAmount(amount);
                     transaction.setTransactionDate(LocalDate.now());
                     transaction.setTransactionType("Debited");
+                    transaction.setDescription(desMob);
                     customer.getWallet().getTransactions().add(transaction);
+                    customerDAO.save(customer);
+                    walletDAO.save(customer.getWallet());
+
+                    //desc customer
+                    desCustomer.getWallet().setBalance(desCustomer.getWallet().getBalance() + amount);
+                    Transaction transactiondes = new Transaction();
+                    transactiondes.setWallet(desCustomer.getWallet());
+                    transactiondes.setAmount(amount);
+                    transactiondes.setTransactionDate(LocalDate.now());
+                    transactiondes.setTransactionType("Credited");
+                    transactiondes.setDescription(customer.getMobileNumber());
+                    desCustomer.getWallet().getTransactions().add(transactiondes);
                     customerDAO.save(desCustomer);
                     walletDAO.save(desCustomer.getWallet());
+
 //                    creditedFund(desMob, amount);
                     return customer;
                 } else {
