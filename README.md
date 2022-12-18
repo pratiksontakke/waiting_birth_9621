@@ -4,7 +4,7 @@
 To create payment wallet application for XYZ bank. Customers will be able to add their money in the wallet. Customer should be able to pay different bills using this wallet. They should be able to connect bank account with this payment wallet and add money. Application should allow customers to check the balance, deposit money etc.
 
 ## Deployed link of project
-- <a href=""> Payment Wallet Application </a>
+- <a href="#"> Payment Wallet Application </a>
 
 ## Team Members
 
@@ -18,13 +18,12 @@ To create payment wallet application for XYZ bank. Customers will be able to add
 </ul>
 
 
-## Languages 
+## Language
 - Java
 
 ## Database
 - My-SQL
 
-On terminal perform:
 ## Deployment
 
 On terminal perform:
@@ -45,8 +44,8 @@ application.properties :
   #db specific properties
   spring.datasource.url=jdbc:mysql://localhost:3306/projectapi
   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-  spring.datasource.username=root
-  spring.datasource.password=root
+  spring.datasource.username=Enter your My-SQL Username
+  spring.datasource.password=Enter your My-SQL Password
   #ORM s/w specific properties
   spring.jpa.hibernate.ddl-auto=update
   spring.jpa.show-sql=true
@@ -117,7 +116,7 @@ application.properties :
 - Transactions 
 - Logout 
 
-#### API Presentation :
+#### API Documentation :
 ![API](./images/01.jpg)
 
 ![API](./images/02.jpg)
