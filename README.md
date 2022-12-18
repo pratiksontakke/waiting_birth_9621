@@ -102,7 +102,7 @@ application.properties :
 - View all bank accounts
 - View bank account by account number
 - Delete bank account by account number
-- Real time SQL Database
+- Real time My-SQL Database
 
 
 ## Flow of User
