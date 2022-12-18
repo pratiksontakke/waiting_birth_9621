@@ -17,20 +17,20 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer customerId;
 
-//    @NotEmpty
-//    @NotBlank
-//    @NotNull
-//    @Pattern(regexp = "[A-Za-z]")
+    @NotNull
+    @NotBlank
+    @NotEmpty
     private String name;
 
 
-//    @Size(min = 10, message = "Please enter valid mobile number")
+    @Size(min = 10, message = "Please enter valid mobile number")
+    @Column(unique=true)
     private String mobileNumber;
 
-//    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,15}$\n")
+    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", message = "Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters")
     private String password;
 
-//    @Email
+    @Email(message = "Enter valid email id.")
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -31,7 +31,7 @@ public class Transaction {
     private String description;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Wallet wallet;
 
 }

@@ -48,6 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customer1.setEmail(customer.getEmail());
                 customer1.setPassword(customer.getPassword());
                 customer1.setMobileNumber(customer.getMobileNumber());
+                loggedInUser.setUserId(customer.getMobileNumber());
                 return cDao.save(customer1);
             } else {
                 throw new CustomerException("Invalid Customer Details, please login first");

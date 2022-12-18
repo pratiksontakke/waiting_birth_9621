@@ -23,7 +23,7 @@ public interface WalletService {
     public String depositAmount(String key, Double amount ) throws CustomerException, LoginException;
 
 
-    public Customer fundTransfer( String srcMob,String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException;
+    public Customer fundTransfer(String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException;
 
     public Customer creditedFund(String desMob, Double amount) throws CustomerException, LoginException, BankAccountException, TransactionException;
 }

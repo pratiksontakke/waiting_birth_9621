@@ -30,7 +30,7 @@ public class Wallet {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     private Set<BeneficiaryDetails> beneficiaryDetails = new HashSet<>();
 
 

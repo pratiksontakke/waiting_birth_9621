@@ -139,14 +139,14 @@ public class TransactionServiceImpl implements TransactionService {
         Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
 
         if (aao != null) {
-
+            System.out.println("before wallet");
             Wallet wallet = customer.getWallet();
-
-            Set<Transaction> transactionSet = transactionDAO.findByTransactionType(transactionType);
+            System.out.println("after wallet");
+            Set<Transaction> transactionSet = wallet.getTransactions();
             Set<Transaction> transactionSet2 = new HashSet<>();
 
             for (Transaction t : transactionSet) {
-                if (t.getWallet().equals(wallet)) {
+                if (t.getTransactionType().equals(transactionType)) {
                     transactionSet2.add(t);
                 }
             }

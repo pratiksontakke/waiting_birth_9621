@@ -19,7 +19,7 @@ public class BillPayment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer billId;
 
-    private BillPaymentEnum billType;
+    private String billType;
 
 //    @NotNull
     private double amount;

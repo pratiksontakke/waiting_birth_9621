@@ -71,22 +71,25 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         if (aao != null) {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
-
             Wallet wallet = customer.getWallet();
-
-            Optional<BankAccount> bankAccount = bankAccountDAO.findById(bankAccountNumber);
-            if (bankAccount.isPresent()) {
-                bankAccountDAO.delete(bankAccount.get());
-                return bankAccount.get();
-
+            Set<BankAccount> bankAccounts = customer.getWallet().getBankAccounts();
+            if (bankAccounts.size()>0) {
+                for (BankAccount ba : bankAccounts) {
+                    if(ba.getAccountNo() == bankAccountNumber) {
+                        bankAccounts.remove(ba);
+                        wallet.setBankAccounts(bankAccounts);
+                        bankAccountDAO.delete(ba);
+                        walletDAO.save(wallet);
+                        return ba;
+                    }
+                }
             } else {
                 throw new BankAccountException("No bank account found!");
             }
-
         } else {
             throw new LoginException("You are not logged in ...");
         }
-
+        return null;
     }
 
     @Override
@@ -95,16 +98,15 @@ public class BankAccountServiceImpl implements BankAccountService {
         CurrentUserSession aao = isLogin(key);
 
         if (aao != null) {
-
-            Optional<BankAccount> bankAccount = bankAccountDAO.findById(bankAccountNumber);
-            if (bankAccount.isPresent()) {
-
-                return bankAccount.get();
-
+            System.out.println("Yes I am entering");
+            BankAccount bankAccount = bankAccountDAO.findByAccountNo(bankAccountNumber);
+            System.out.println("Yes I am here");
+            if (bankAccount!=null) {
+                System.out.println("Yes I am going");
+                return bankAccount;
             } else {
                 throw new BankAccountException("No bank account found!");
             }
-
         } else {
             throw new LoginException("You are not logged in ...");
         }
@@ -120,6 +122,7 @@ public class BankAccountServiceImpl implements BankAccountService {
             Customer customer = customerDAO.findByMobileNumber(aao.getUserId());
 
             Set<BankAccount> bankAccounts = customer.getWallet().getBankAccounts();
+
             if (bankAccounts.size()!=0) {
 
                 return bankAccounts;
