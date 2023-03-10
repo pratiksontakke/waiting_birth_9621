@@ -18,10 +18,9 @@ public interface WalletService {
     //public Customer createWalletAccount(String name,String mobileNumber, double balance) throws CustomerException, WalletException;
     public double showBalance(String mobileNumber) throws CustomerException, LoginException ;
 
-
     public Customer getCustomers(String key) throws CustomerException, LoginException;
-    public String depositAmount(String key, Double amount ) throws CustomerException, LoginException;
 
+    public String depositAmount(String key, Double amount ) throws CustomerException, LoginException;
 
     public Customer fundTransfer(String desMob, Double amount,String key) throws CustomerException, LoginException, BankAccountException, TransactionException;
 
