@@ -4,16 +4,16 @@
 To create payment wallet application for XYZ bank. Customers will be able to add their money in the wallet. Customer should be able to pay different bills using this wallet. They should be able to connect bank account with this payment wallet and add money. Application should allow customers to check the balance, deposit money etc.
 
 ## Deployed link of project
-- <a href="https://waitingbirth9621-production.up.railway.app/swagger-ui/#/"> Payment Wallet Application </a>
+- <a href="https://waitingbirth9621-production.up.railway.app/swagger-ui/#/" target="_blank"> Payment Wallet Application </a>
 
 ## Team Members
 
 <ul>
-  <li><a href="https://github.com/pratiksontakke">Pratik Sontakke</a></li>
-  <li><a href="https://github.com/Hartumpa">Harshit Awasthi</a></li>
-  <li><a href="https://github.com/jkka777">Kishore J</a></li>
-  <li><a href="https://github.com/sachin9603">Sachin Parmar</a></li>
-  <li><a href="https://github.com/rajashekharms369">Rajashekhar Sambalad</a></li>
+  <li><a href="https://github.com/pratiksontakke" target="_blank">Pratik Sontakke</a></li>
+  <li><a href="https://github.com/Hartumpa" target="_blank">Harshit Awasthi</a></li>
+  <li><a href="https://github.com/jkka777" target="_blank">Kishore J</a></li>
+  <li><a href="https://github.com/sachin9603" target="_blank">Sachin Parmar</a></li>
+  <li><a href="https://github.com/rajashekharms369" target="_blank">Rajashekhar Sambalad</a></li>
 
 </ul>
 
@@ -118,7 +118,7 @@ application.properties :
 
 ## API Presentation Video
 <ul>
-  <li><a href="https://drive.google.com/file/d/1IEAVuEbmHCJ9_2xlEJWCAx3IqWw9dKPA/view?usp=share_link">Video Link</a></li>
+  <li><a href="https://drive.google.com/file/d/1IEAVuEbmHCJ9_2xlEJWCAx3IqWw9dKPA/view?usp=share_link" target="_blank">Video Link</a></li>
 </ul>
 
 ## API Presentation 
@@ -133,4 +133,4 @@ application.properties :
 ## Thank you note
 Thank you all who is giving precious time to visit our little creative project which is made with lot of efforts.
 
-_<p align="center"><sub>- Readme file designed by <a href="https://github.com/pratiksontakke">Pratik Sontakke</a> -</sub></p>_
+_<p align="center"><sub>- Readme file designed by <a href="https://github.com/pratiksontakke" target="_blank">Pratik Sontakke</a> -</sub></p>_
